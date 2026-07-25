@@ -95,7 +95,7 @@
                 </div>
             </div>
             
-            <button type="submit" style="background-color: #1e3a8a;" class="w-full text-white font-semibold py-3 rounded-lg transition duration-200 mt-2 shadow-md text-sm sm:text-base">
+            <button type="submit" style="background-color: #1e3a8a;" class="w-full text-white font-semibold py-3 rounded-lg transition duration-200 mt-2 shadow-md text-sm sm:text-base hover:bg-blue-950">
                 เริ่มทำแบบทดสอบ
             </button>
         </form>
@@ -115,12 +115,11 @@
                 <div id="optionsContainer" class="space-y-2.5"></div>
             </div>
 
-            <!-- ปรับปรุงส่วนปุ่มเหลือ 2 ปุ่มใน Grid เดียวกัน -->
             <div class="grid grid-cols-2 gap-3 pt-2">
                 <button id="prevBtn" type="button" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2.5 rounded-lg transition duration-200 text-xs sm:text-sm">
                     ย้อนกลับ
                 </button>
-                <button id="nextBtn" type="button" style="background-color: #1e3a8a;" class="w-full text-white font-bold py-2.5 rounded-lg transition duration-200 text-xs sm:text-sm shadow-md">
+                <button id="nextBtn" type="button" style="background-color: #1e3a8a;" class="w-full text-white font-bold py-2.5 rounded-lg transition duration-200 text-xs sm:text-sm shadow-md hover:bg-blue-950">
                     ถัดไป
                 </button>
             </div>
@@ -141,7 +140,7 @@
                 <button id="backToQuizBtn" type="button" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2.5 rounded-lg transition duration-200 text-xs sm:text-sm">
                     กลับไปแก้ไข
                 </button>
-                <button id="submitQuizBtn" type="button" style="background-color: #1e3a8a;" class="w-full text-white font-bold py-2.5 rounded-lg transition duration-200 text-xs sm:text-sm shadow-md">
+                <button id="submitQuizBtn" type="button" style="background-color: #1e3a8a;" class="w-full text-white font-bold py-2.5 rounded-lg transition duration-200 text-xs sm:text-sm shadow-md hover:bg-blue-950">
                     ยืนยันส่งคำตอบ
                 </button>
             </div>
@@ -293,6 +292,11 @@
                 testType: selectedTestType
             };
 
+            startQuizProcess();
+        });
+
+        // ฟังก์ชันเริ่มทำแบบทดสอบ (สุ่มข้อสอบชุดใหม่)
+        function startQuizProcess() {
             quizQuestions = prepareQuizQuestions(rawQuestions, 10);
             currentQuestionIndex = 0;
             userAnswers = new Array(10).fill(null);
@@ -305,9 +309,10 @@
             document.addEventListener('visibilitychange', handleVisibilityChange);
 
             infoForm.classList.add('hidden');
+            resultPage.classList.add('hidden');
             quizForm.classList.remove('hidden');
             showQuestion();
-        });
+        }
 
         function handleVisibilityChange() {
             if (document.hidden) {
@@ -414,24 +419,30 @@
             const statusText = document.getElementById('resultStatusText');
             const actionContainer = document.getElementById('actionContainer');
 
+            // 1. กรณี Pre-test: บันทึกคะแนนได้เลย ไม่ต้องสอบใหม่
             if (userData.testType === "Pre-test") {
                 iconDiv.innerText = "📝";
                 statusText.innerText = "เสร็จสิ้นการทำแบบทดสอบก่อนเรียน!";
                 statusText.className = "text-xl md:text-2xl font-bold text-blue-900";
-                actionContainer.innerHTML = `<p class="text-gray-500 font-medium text-xs sm:text-sm">ระบบบันทึกฐานข้อมูลเรียนเรียบร้อยแล้ว โปรดเตรียมตัวฝึกปฏิบัติในขั้นตอนถัดไป</p>`;
-            } else {
+                actionContainer.innerHTML = `<p class="text-gray-500 font-medium text-xs sm:text-sm">ระบบบันทึกผลสอบก่อนเรียนเรียบร้อยแล้ว โปรดเตรียมตัวเข้าสู่ขั้นตอนการเรียนรู้/ฝึกปฏิบัติ</p>`;
+            } 
+            // 2. กรณี Post-test
+            else {
                 if (isPassed) {
+                    // ผ่านเกณฑ์ (>= 70% หรือ 7 ข้อ)
                     iconDiv.innerText = "🎉";
                     statusText.innerText = "ยินดีด้วยคุณผ่านการทดสอบหลังเรียนแล้ว!";
                     statusText.className = "text-xl md:text-2xl font-bold text-emerald-600";
-                    actionContainer.innerHTML = `<p class="text-gray-500 font-medium text-xs sm:text-sm">บันทึกข้อมูลคะแนนผ่านเกณฑ์เข้าสู่ฐานข้อมูลกลางเรียบร้อย</p>`;
+                    actionContainer.innerHTML = `<p class="text-gray-500 font-medium text-xs sm:text-sm">บันทึกข้อมูลคะแนนผ่านเกณฑ์เข้าสู่ฐานข้อมูลเรียบร้อยแล้ว</p>`;
                 } else {
+                    // ไม่ผ่านเกณฑ์ (< 70% หรือ < 7 ข้อ): บันทึกผล แล้วแสดงปุ่มสุ่มทำข้อสอบใหม่
                     iconDiv.innerText = "❌";
                     statusText.innerText = "คุณยังไม่ผ่านการทดสอบตามเกณฑ์";
                     statusText.className = "text-xl md:text-2xl font-bold text-rose-600";
                     actionContainer.innerHTML = `
-                        <button type="button" onclick="location.reload()" class="bg-rose-600 hover:bg-rose-700 text-white font-bold py-2 px-6 rounded-lg transition duration-200 shadow text-xs sm:text-sm">
-                            กลับไปสอบใหม่
+                        <p class="text-xs text-rose-500 mb-3 font-medium">คะแนนไม่ถึงเกณฑ์ 70% ระบบบันทึกผลการสอบแล้ว กรุณากดปุ่มด้านล่างเพื่อสุ่มชุดข้อสอบใหม่และทำแบบทดสอบอีกครั้ง</p>
+                        <button type="button" onclick="startQuizProcess()" style="background-color: #1e3a8a;" class="text-white font-bold py-2.5 px-6 rounded-lg transition duration-200 shadow text-xs sm:text-sm hover:bg-blue-950">
+                            สุ่มทำข้อสอบใหม่
                         </button>
                     `;
                 }
