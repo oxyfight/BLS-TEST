@@ -7,7 +7,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* พื้นหลังสีเขียวอ่อน สบายตา */
         body { font-family: 'Sarabun', sans-serif; background-color: #e6f4ea; }
         .hidden { display: none !important; }
         label { -webkit-tap-highlight-color: transparent; }
@@ -46,7 +45,7 @@
     <!-- บล็อกหลักของตัวแอปพลิเคชัน -->
     <div class="w-full max-w-xl bg-white rounded-2xl shadow-xl border-t-8 border-blue-900 p-4 sm:p-6 md:p-8 relative z-10">
         
-        <!-- 🖼️ [LOGO AREA] พื้นที่สำหรับใส่โลโก้ -->
+        <!-- 🖼️ [LOGO AREA] -->
         <div class="flex justify-center items-center pb-2">
             <img src="https://knfhgytkfshdmfdieczx.supabase.co/storage/v1/object/public/pic/STOP%20THE%20BLEED%20BIG%20LOGO.png" 
                  alt="Logo" 
@@ -113,7 +112,6 @@
             <div class="flex justify-between items-center bg-blue-50 p-2.5 rounded-lg text-xs md:text-sm text-blue-950 font-semibold border border-blue-100">
                 <span id="progressText">ข้อที่ 1 จาก 10</span>
                 <div class="flex items-center space-x-2">
-                    <!-- แสดง ชื่อ-นามสกุล ของผู้สอบตรงนี้ -->
                     <span id="displayUserName" class="text-blue-950 font-bold text-xs sm:text-sm"></span>
                     <span id="displayTestType" class="bg-blue-900 text-white px-2.5 py-0.5 rounded-full text-xs"></span>
                 </div>
@@ -166,11 +164,11 @@
 
     </div>
 
-    <div class="text-gray-900 text-xxs opacity-70 mt-4 text-center z-10 font-medium">BASIC LIFE SUPPORT (CPR & AED) Educational Assessment System</div>
+    <div class="text-gray-900 text-xxs opacity-70 mt-4 text-center z-10 font-medium">BASIC LIFE SUPPORT (CPR & AED) Educational Assessment System by OXYFIGHT CENTER</div>
 
     <script>
         // ========================================================
-        // 🔒 [SECURITY HARDENING] ป้องกันการขโมยข้อสอบ
+        // 🔒 [SECURITY HARDENING]
         // ========================================================
         document.addEventListener('contextmenu', e => e.preventDefault());
         document.addEventListener('copy', e => e.preventDefault());
@@ -187,7 +185,6 @@
             }
         });
 
-        // ควบคุม Blur Screen เมื่อหน้าจอหลุด Focus หรือสลับแอป
         const blurScreen = document.getElementById('blurScreen');
 
         window.addEventListener('blur', () => {
@@ -314,7 +311,6 @@
             startTime = Date.now();
             cheatCount = 0;
 
-            // แสดงชื่อผู้สอบ และประเภทข้อสอบในแถบสถานะด้านบน
             document.getElementById('displayUserName').innerText = `${userData.prefix}${userData.fullName}`;
             document.getElementById('displayTestType').innerText = userData.testType;
             
@@ -338,6 +334,7 @@
             const qData = quizQuestions[currentQuestionIndex];
             questionText.innerText = qData.q;
 
+            // ปุ่มย้อนกลับ
             if (currentQuestionIndex === 0) {
                 prevBtn.classList.add('opacity-50', 'cursor-not-allowed');
                 prevBtn.disabled = true;
@@ -346,9 +343,10 @@
                 prevBtn.disabled = false;
             }
 
+            // ปุ่มถัดไป / ตรวจสอบคำตอบ (แก้ไขไม่ให้หายในข้อ 10)
             if (currentQuestionIndex === 9) {
                 nextBtn.innerText = "ตรวจสอบคำตอบ";
-                nextBtn.className = "w-full bg-amber-600 hover:bg-amber-700 text-white font-semibold py-2.5 rounded-lg transition duration-200 text-xs sm:text-sm";
+                nextBtn.className = "w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-2.5 rounded-lg transition duration-200 text-xs sm:text-sm shadow-md";
             } else {
                 nextBtn.innerText = "ถัดไป";
                 nextBtn.className = "w-full bg-blue-900 hover:bg-blue-950 text-white font-semibold py-2.5 rounded-lg transition duration-200 text-xs sm:text-sm";
@@ -399,7 +397,7 @@
         function goToReviewPage() {
             quizForm.classList.add('hidden');
             reviewPage.classList.remove('hidden');
-            document.getElementById('revName').innerText = `${userData.prefix} ${userData.fullName}`;
+            document.getElementById('revName').innerText = `${userData.prefix}${userData.fullName}`;
             document.getElementById('revTestType').innerText = userData.testType;
         }
 
