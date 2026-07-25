@@ -7,7 +7,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ปรับพื้นหลังเป็นสีเขียวอ่อน สบายตา */
+        /* พื้นหลังสีเขียวอ่อน สบายตา */
         body { font-family: 'Sarabun', sans-serif; background-color: #e6f4ea; }
         .hidden { display: none !important; }
         label { -webkit-tap-highlight-color: transparent; }
@@ -37,7 +37,7 @@
 
         .watermark-text {
             transform: rotate(-30deg);
-            color: rgba(6, 78, 59, 0.08); /* สีเขียวเข้มจางๆ สำหรับลายน้ำ */
+            color: rgba(30, 58, 138, 0.08); /* สีกรมท่าจางๆ สำหรับลายน้ำ */
             font-size: 2rem;
             font-weight: 800;
             text-align: center;
@@ -69,30 +69,31 @@
 
     <!-- ฉากดำ/เบลอเมื่อสลับหน้าจอ หรือหลุดโฟกัส -->
     <div id="blurScreen" class="fixed inset-0 bg-gray-900 bg-opacity-95 z-50 flex-col items-center justify-center text-white p-6 text-center hidden">
-        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-emerald-900 text-emerald-200 mb-4">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-900 text-blue-200 mb-4">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88" />
             </svg>
         </div>
         <h3 class="text-xl font-bold mb-2">หน้าจอถูกระงับชั่วคราว</h3>
         <p class="text-sm text-gray-300 max-w-sm">ไม่อนุญาตให้สลับหน้าจอ บันทึกภาพ หรือออกจากหน้าต่างทำข้อสอบ</p>
-        <p class="text-xs text-emerald-400 mt-4">กรุณาคลิกกลับมาที่หน้าต่างนี้เพื่อทำข้อสอบต่อ</p>
+        <p class="text-xs text-blue-300 mt-4">กรุณาคลิกกลับมาที่หน้าต่างนี้เพื่อทำข้อสอบต่อ</p>
     </div>
 
     <!-- บล็อกหลักของตัวแอปพลิเคชัน -->
-    <div class="w-full max-w-xl bg-white rounded-2xl shadow-xl border-t-8 border-emerald-600 p-4 sm:p-6 md:p-8 relative z-10">
+    <div class="w-full max-w-xl bg-white rounded-2xl shadow-xl border-t-8 border-blue-900 p-4 sm:p-6 md:p-8 relative z-10">
         
         <!-- 🖼️ [LOGO AREA] พื้นที่สำหรับใส่โลโก้ -->
         <div class="flex justify-center items-center pb-2">
-            <!-- 📌 นำ URL ลิงก์รูปโลโก้ของคุณมาวางแทนที่ในช่อง src="..." ด้านล่างนี้ได้เลยครับ -->
             <img src="https://knfhgytkfshdmfdieczx.supabase.co/storage/v1/object/public/pic/STOP%20THE%20BLEED%20BIG%20LOGO.png" 
                  alt="Logo" 
-                 class="h-16 sm:h-20 object-contain drop-shadow-sm onError='this.style.display=\"none\"'">
+                 class="h-16 sm:h-20 object-contain drop-shadow-sm"
+                 onerror="this.style.display='none'">
         </div>
 
         <div class="text-center mb-4 md:mb-6">
-            <h1 class="text-xl md:text-2xl font-bold text-gray-800">แบบทดสอบหลักสูตร BASIC LIFE SUPPORT</h1>
-            <p id="subTitleText" class="text-emerald-700 font-semibold mt-1 text-xs md:text-sm">ข้อสอบ 10 ข้อ (สุ่มจากคลัง 30 ข้อ)</p>
+            <!-- ข้อความสีกรมท่า (Navy Blue) -->
+            <h1 class="text-xl md:text-2xl font-bold text-blue-950">แบบทดสอบหลักสูตร BASIC LIFE SUPPORT</h1>
+            <p id="subTitleText" class="text-blue-900 font-semibold mt-1 text-xs md:text-sm">ข้อสอบ 10 ข้อ</p>
         </div>
 
         <!-- 1. ส่วนแจ้งเตือนเมื่อปิดระบบสอบ -->
@@ -108,17 +109,17 @@
 
         <!-- 2. หน้ากรอกข้อมูลผู้เข้าสอบ -->
         <form id="infoForm" class="hidden space-y-4">
-            <h2 class="text-base font-bold text-gray-700">ข้อมูลผู้เข้าสอบ</h2>
+            <h2 class="text-base font-bold text-blue-900">ข้อมูลผู้เข้าสอบ</h2>
             
-            <div class="bg-emerald-50/50 p-3 rounded-xl border border-emerald-100">
-                <label class="block text-xs font-semibold text-emerald-900 mb-2">โปรดเลือกประเภทการทดสอบ *</label>
+            <div class="bg-blue-50/50 p-3 rounded-xl border border-blue-100">
+                <label class="block text-xs font-semibold text-blue-950 mb-2">โปรดเลือกประเภทการทดสอบ *</label>
                 <div class="grid grid-cols-2 gap-3">
-                    <label class="flex flex-col sm:flex-row items-center justify-center p-2 border rounded-lg cursor-pointer bg-white hover:bg-emerald-50 transition border-gray-200 text-center sm:text-left">
-                        <input type="radio" name="testTypeInput" value="Pre-test" required class="h-4 w-4 text-emerald-600 focus:ring-emerald-500">
+                    <label class="flex flex-col sm:flex-row items-center justify-center p-2 border rounded-lg cursor-pointer bg-white hover:bg-blue-50 transition border-gray-200 text-center sm:text-left">
+                        <input type="radio" name="testTypeInput" value="Pre-test" required class="h-4 w-4 text-blue-900 focus:ring-blue-800">
                         <span class="mt-1 sm:mt-0 sm:ml-2 text-xs sm:text-sm font-bold text-gray-700">Pre-test</span>
                     </label>
-                    <label class="flex flex-col sm:flex-row items-center justify-center p-2 border rounded-lg cursor-pointer bg-white hover:bg-emerald-50 transition border-gray-200 text-center sm:text-left">
-                        <input type="radio" name="testTypeInput" value="Post-test" required class="h-4 w-4 text-emerald-600 focus:ring-emerald-500">
+                    <label class="flex flex-col sm:flex-row items-center justify-center p-2 border rounded-lg cursor-pointer bg-white hover:bg-blue-50 transition border-gray-200 text-center sm:text-left">
+                        <input type="radio" name="testTypeInput" value="Post-test" required class="h-4 w-4 text-blue-900 focus:ring-blue-800">
                         <span class="mt-1 sm:mt-0 sm:ml-2 text-xs sm:text-sm font-bold text-gray-700">Post-test</span>
                     </label>
                 </div>
@@ -126,29 +127,29 @@
 
             <div class="grid grid-cols-3 gap-3">
                 <div class="col-span-1">
-                    <label class="block text-xs font-medium text-gray-600 mb-1">คำนำหน้า *</label>
-                    <select id="prefix" required class="w-full border border-gray-300 rounded-lg px-2 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white">
+                    <label class="block text-xs font-medium text-blue-950 mb-1">คำนำหน้า *</label>
+                    <select id="prefix" required class="w-full border border-gray-300 rounded-lg px-2 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-900 bg-white">
                         <option value="นาย">นาย</option>
                         <option value="นาง">นาง</option>
                         <option value="นางสาว">นางสาว</option>
                     </select>
                 </div>
                 <div class="col-span-2">
-                    <label class="block text-xs font-medium text-gray-600 mb-1">ชื่อ - นามสกุล *</label>
-                    <input type="text" id="fullName" required class="w-full border border-gray-300 rounded-lg px-3 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                    <label class="block text-xs font-medium text-blue-950 mb-1">ชื่อ - นามสกุล *</label>
+                    <input type="text" id="fullName" required class="w-full border border-gray-300 rounded-lg px-3 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-900">
                 </div>
             </div>
             
-            <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 rounded-lg transition duration-200 mt-2 shadow-md text-sm sm:text-base">
+            <button type="submit" class="w-full bg-blue-900 hover:bg-blue-950 text-white font-semibold py-3 rounded-lg transition duration-200 mt-2 shadow-md text-sm sm:text-base">
                 เริ่มทำแบบทดสอบ
             </button>
         </form>
 
         <!-- 3. หน้าข้อสอบ -->
         <div id="quizForm" class="hidden space-y-4">
-            <div class="flex justify-between items-center bg-emerald-50 p-2.5 rounded-lg text-xs md:text-sm text-emerald-900 font-semibold border border-emerald-100">
+            <div class="flex justify-between items-center bg-blue-50 p-2.5 rounded-lg text-xs md:text-sm text-blue-950 font-semibold border border-blue-100">
                 <span id="progressText">ข้อที่ 1 จาก 10</span>
-                <span id="displayTestType" class="bg-emerald-600 text-white px-2.5 py-0.5 rounded-full text-xs"></span>
+                <span id="displayTestType" class="bg-blue-900 text-white px-2.5 py-0.5 rounded-full text-xs"></span>
             </div>
             
             <div id="questionContainer" class="bg-gray-50 p-4 sm:p-5 rounded-xl border border-gray-200">
@@ -160,7 +161,7 @@
                 <button id="prevBtn" type="button" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2.5 rounded-lg transition duration-200 text-xs sm:text-sm">
                     ย้อนกลับ
                 </button>
-                <button id="nextBtn" type="button" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 rounded-lg transition duration-200 text-xs sm:text-sm">
+                <button id="nextBtn" type="button" class="w-full bg-blue-900 hover:bg-blue-950 text-white font-semibold py-2.5 rounded-lg transition duration-200 text-xs sm:text-sm">
                     ถัดไป
                 </button>
             </div>
@@ -168,12 +169,12 @@
 
         <!-- 4. หน้าทบทวนข้อมูลก่อนส่งคำตอบ -->
         <div id="reviewPage" class="hidden space-y-4">
-            <h2 class="text-lg font-bold text-gray-800 border-b pb-2 text-center">ตรวจสอบข้อมูลและส่งคำตอบ</h2>
-            <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-100 space-y-2 text-gray-700 text-sm">
-                <p class="font-bold text-base text-emerald-900 mb-1 text-center">ข้อมูลสรุปการส่งผลสอบ</p>
+            <h2 class="text-lg font-bold text-blue-950 border-b pb-2 text-center">ตรวจสอบข้อมูลและส่งคำตอบ</h2>
+            <div class="bg-blue-50 p-4 rounded-xl border border-blue-100 space-y-2 text-gray-700 text-sm">
+                <p class="font-bold text-base text-blue-950 mb-1 text-center">ข้อมูลสรุปการส่งผลสอบ</p>
                 <div class="text-center space-y-1">
                     <div>ผู้เข้าสอบ: <span id="revName" class="font-bold text-slate-800"></span></div>
-                    <div>ประเภทการสอบ: <span id="revTestType" class="font-bold text-emerald-700"></span></div>
+                    <div>ประเภทการสอบ: <span id="revTestType" class="font-bold text-blue-900"></span></div>
                 </div>
             </div>
             <p class="text-center text-amber-600 text-xs font-medium">โปรดตรวจสอบข้อมูลให้ถูกต้อง หากมั่นใจแล้วสามารถกดส่งคำตอบได้ทันที</p>
@@ -193,12 +194,12 @@
             <h2 id="resultStatusText" class="text-xl md:text-2xl font-bold"></h2>
             <p id="resultScoreText" class="text-base md:text-xl text-gray-600"></p>
             <div id="actionContainer" class="pt-2"></div>
-            <p id="savingText" class="text-xs text-emerald-700 hidden">กำลังบันทึกคะแนนลงสู่ระบบจัดเก็บข้อมูล...</p>
+            <p id="savingText" class="text-xs text-blue-900 hidden">กำลังบันทึกคะแนนลงสู่ระบบจัดเก็บข้อมูล...</p>
         </div>
 
     </div>
 
-    <div class="text-emerald-800 text-xxs opacity-60 mt-4 text-center z-10 font-medium">BASIC LIFE SUPPORT (CPR & AED) Educational Assessment System</div>
+    <div class="text-blue-900 text-xxs opacity-70 mt-4 text-center z-10 font-medium">BASIC LIFE SUPPORT (CPR & AED) Educational Assessment System</div>
 
     <script>
         // ========================================================
@@ -322,10 +323,10 @@
         document.querySelectorAll('input[name="testTypeInput"]').forEach(input => {
             input.addEventListener('change', function() {
                 document.querySelectorAll('input[name="testTypeInput"]').forEach(i => {
-                    i.parentElement.classList.remove('border-emerald-600', 'bg-emerald-50');
+                    i.parentElement.classList.remove('border-blue-900', 'bg-blue-50');
                 });
                 if(this.checked) {
-                    this.parentElement.classList.add('border-emerald-600', 'bg-emerald-50');
+                    this.parentElement.classList.add('border-blue-900', 'bg-blue-50');
                 }
             });
         });
@@ -386,25 +387,25 @@
                 nextBtn.className = "w-full bg-amber-600 hover:bg-amber-700 text-white font-semibold py-2.5 rounded-lg transition duration-200 text-xs sm:text-sm";
             } else {
                 nextBtn.innerText = "ถัดไป";
-                nextBtn.className = "w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 rounded-lg transition duration-200 text-xs sm:text-sm";
+                nextBtn.className = "w-full bg-blue-900 hover:bg-blue-950 text-white font-semibold py-2.5 rounded-lg transition duration-200 text-xs sm:text-sm";
             }
 
             qData.options.forEach((option, index) => {
                 const label = document.createElement('label');
                 const isChecked = userAnswers[currentQuestionIndex] === index;
                 
-                label.className = `flex items-center p-3 border rounded-lg cursor-pointer bg-white hover:bg-emerald-50/50 transition duration-150 block text-xs sm:text-sm ${isChecked ? 'border-emerald-600 bg-emerald-50 font-semibold' : 'border-gray-200'}`;
+                label.className = `flex items-center p-3 border rounded-lg cursor-pointer bg-white hover:bg-blue-50/50 transition duration-150 block text-xs sm:text-sm ${isChecked ? 'border-blue-900 bg-blue-50 font-semibold' : 'border-gray-200'}`;
                 label.innerHTML = `
-                    <input type="radio" name="answer" value="${index}" ${isChecked ? 'checked' : ''} class="h-4 w-4 text-emerald-600 border-gray-300 focus:ring-emerald-500 flex-shrink-0">
+                    <input type="radio" name="answer" value="${index}" ${isChecked ? 'checked' : ''} class="h-4 w-4 text-blue-900 border-gray-300 focus:ring-blue-800 flex-shrink-0">
                     <span class="ml-3 text-gray-700 leading-snug">${['ก', 'ข', 'ค', 'ง'][index]}. ${option}</span>
                 `;
                 
                 label.querySelector('input').addEventListener('change', () => {
                     userAnswers[currentQuestionIndex] = index;
                     document.querySelectorAll('#optionsContainer label').forEach(l => {
-                        l.className = "flex items-center p-3 border rounded-lg cursor-pointer bg-white hover:bg-emerald-50/50 transition duration-150 border-gray-200 block text-xs sm:text-sm";
+                        l.className = "flex items-center p-3 border rounded-lg cursor-pointer bg-white hover:bg-blue-50/50 transition duration-150 border-gray-200 block text-xs sm:text-sm";
                     });
-                    label.className = "flex items-center p-3 border rounded-lg cursor-pointer bg-emerald-50 hover:bg-emerald-100 transition duration-150 border-emerald-600 font-semibold block text-xs sm:text-sm";
+                    label.className = "flex items-center p-3 border rounded-lg cursor-pointer bg-blue-50 hover:bg-blue-100 transition duration-150 border-blue-900 font-semibold block text-xs sm:text-sm";
                 });
                 
                 optionsContainer.appendChild(label);
@@ -471,7 +472,7 @@
             if (userData.testType === "Pre-test") {
                 iconDiv.innerText = "📝";
                 statusText.innerText = "เสร็จสิ้นการทำแบบทดสอบก่อนเรียน!";
-                statusText.className = "text-xl md:text-2xl font-bold text-blue-600";
+                statusText.className = "text-xl md:text-2xl font-bold text-blue-900";
                 actionContainer.innerHTML = `<p class="text-gray-500 font-medium text-xs sm:text-sm">ระบบบันทึกฐานข้อมูลเรียนเรียบร้อยแล้ว โปรดเตรียมตัวฝึกปฏิบัติในขั้นตอนถัดไป</p>`;
             } else {
                 if (isPassed) {
@@ -510,12 +511,12 @@
             })
             .then(() => {
                 document.getElementById('savingText').innerText = "✓ บันทึกผลสอบลงระบบสำเร็จ";
-                document.getElementById('savingText').className = "text-xs text-emerald-600 font-medium";
+                document.getElementById('savingText').className = "text-xs text-blue-900 font-medium";
             })
             .catch((err) => {
                 console.error("Error saving:", err);
                 document.getElementById('savingText').innerText = "✓ บันทึกผลสอบลงระบบสำเร็จ";
-                document.getElementById('savingText').className = "text-xs text-emerald-600 font-medium";
+                document.getElementById('savingText').className = "text-xs text-blue-900 font-medium";
             });
         });
     </script>
