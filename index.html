@@ -19,37 +19,6 @@
             -ms-user-select: none;
             user-select: none;
         }
-
-        /* Watermark Style */
-        .watermark-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 40;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .watermark-text {
-            transform: rotate(-30deg);
-            color: rgba(30, 58, 138, 0.08); /* สีกรมท่าจางๆ สำหรับลายน้ำ */
-            font-size: 2rem;
-            font-weight: 800;
-            text-align: center;
-            line-height: 1.6;
-            white-space: nowrap;
-        }
-
-        @media (min-width: 768px) {
-            .watermark-text {
-                font-size: 3.5rem;
-            }
-        }
     </style>
     
     <script>
@@ -61,11 +30,6 @@
     </script>
 </head>
 <body class="min-h-screen flex flex-col justify-center items-center p-3 md:p-6 select-none relative">
-
-    <!-- Dynamic Watermark (จะปรากฏเมื่อกรอกชื่อและเริ่มทำข้อสอบ) -->
-    <div id="watermarkOverlay" class="watermark-container hidden">
-        <div id="watermarkText" class="watermark-text"></div>
-    </div>
 
     <!-- ฉากดำ/เบลอเมื่อสลับหน้าจอ หรือหลุดโฟกัส -->
     <div id="blurScreen" class="fixed inset-0 bg-gray-900 bg-opacity-95 z-50 flex-col items-center justify-center text-white p-6 text-center hidden">
@@ -91,7 +55,6 @@
         </div>
 
         <div class="text-center mb-4 md:mb-6">
-            <!-- ข้อความสีกรมท่า (Navy Blue) -->
             <h1 class="text-xl md:text-2xl font-bold text-blue-950">แบบทดสอบหลักสูตร BASIC LIFE SUPPORT</h1>
             <p id="subTitleText" class="text-blue-900 font-semibold mt-1 text-xs md:text-sm">ข้อสอบ 10 ข้อ</p>
         </div>
@@ -149,7 +112,11 @@
         <div id="quizForm" class="hidden space-y-4">
             <div class="flex justify-between items-center bg-blue-50 p-2.5 rounded-lg text-xs md:text-sm text-blue-950 font-semibold border border-blue-100">
                 <span id="progressText">ข้อที่ 1 จาก 10</span>
-                <span id="displayTestType" class="bg-blue-900 text-white px-2.5 py-0.5 rounded-full text-xs"></span>
+                <div class="flex items-center space-x-2">
+                    <!-- แสดง ชื่อ-นามสกุล ของผู้สอบตรงนี้ -->
+                    <span id="displayUserName" class="text-blue-950 font-bold text-xs sm:text-sm"></span>
+                    <span id="displayTestType" class="bg-blue-900 text-white px-2.5 py-0.5 rounded-full text-xs"></span>
+                </div>
             </div>
             
             <div id="questionContainer" class="bg-gray-50 p-4 sm:p-5 rounded-xl border border-gray-200">
@@ -340,12 +307,6 @@
                 fullName: document.getElementById('fullName').value,
                 testType: selectedTestType
             };
-            
-            // แสดง Dynamic Watermark ลายน้ำชื่อผู้สอบ
-            const watermarkOverlay = document.getElementById('watermarkOverlay');
-            const watermarkText = document.getElementById('watermarkText');
-            watermarkText.innerHTML = `${userData.prefix}${userData.fullName}<br>BLS TEST (${userData.testType})`;
-            watermarkOverlay.classList.remove('hidden');
 
             quizQuestions = prepareQuizQuestions(rawQuestions, 10);
             currentQuestionIndex = 0;
@@ -353,7 +314,10 @@
             startTime = Date.now();
             cheatCount = 0;
 
+            // แสดงชื่อผู้สอบ และประเภทข้อสอบในแถบสถานะด้านบน
+            document.getElementById('displayUserName').innerText = `${userData.prefix}${userData.fullName}`;
             document.getElementById('displayTestType').innerText = userData.testType;
+            
             document.addEventListener('visibilitychange', handleVisibilityChange);
 
             infoForm.classList.add('hidden');
@@ -449,9 +413,6 @@
             document.removeEventListener('visibilitychange', handleVisibilityChange);
             reviewPage.classList.add('hidden');
             resultPage.classList.remove('hidden');
-
-            // ซ่อน Watermark เมื่อทำข้อสอบเสร็จ
-            document.getElementById('watermarkOverlay').classList.add('hidden');
 
             let score = 0;
             quizQuestions.forEach((q, idx) => {
