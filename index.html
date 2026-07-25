@@ -21,16 +21,11 @@
     </style>
     
     <script>
-        // ========================================================
-        // ⚙️ [CONFIG] ตัวแปรควบคุมการเปิด-ปิด ฟอร์ม
-        // true = เปิดระบบสอบปกติ / false = ปิดระบบสอบและแสดงข้อความแจ้งเตือน
-        // ========================================================
         const isFormOpen = true; 
     </script>
 </head>
 <body class="min-h-screen flex flex-col justify-center items-center p-3 md:p-6 select-none relative">
 
-    <!-- ฉากดำ/เบลอเมื่อสลับหน้าจอ หรือหลุดโฟกัส -->
     <div id="blurScreen" class="fixed inset-0 bg-gray-900 bg-opacity-95 z-50 flex-col items-center justify-center text-white p-6 text-center hidden">
         <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-900 text-blue-200 mb-4">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
@@ -42,10 +37,8 @@
         <p class="text-xs text-blue-300 mt-4">กรุณาคลิกกลับมาที่หน้าต่างนี้เพื่อทำข้อสอบต่อ</p>
     </div>
 
-    <!-- บล็อกหลักของตัวแอปพลิเคชัน -->
     <div class="w-full max-w-xl bg-white rounded-2xl shadow-xl border-t-8 border-blue-900 p-4 sm:p-6 md:p-8 relative z-10">
         
-        <!-- 🖼️ [LOGO AREA] -->
         <div class="flex justify-center items-center pb-2">
             <img src="https://knfhgytkfshdmfdieczx.supabase.co/storage/v1/object/public/pic/OXYFIGHT_CENTER.png" 
                  alt="OXY FIGHT MEDIC Logo" 
@@ -102,7 +95,7 @@
                 </div>
             </div>
             
-            <button type="submit" class="w-full bg-blue-900 hover:bg-blue-950 text-white font-semibold py-3 rounded-lg transition duration-200 mt-2 shadow-md text-sm sm:text-base">
+            <button type="submit" style="background-color: #1e3a8a;" class="w-full text-white font-semibold py-3 rounded-lg transition duration-200 mt-2 shadow-md text-sm sm:text-base">
                 เริ่มทำแบบทดสอบ
             </button>
         </form>
@@ -113,7 +106,7 @@
                 <span id="progressText">ข้อที่ 1 จาก 10</span>
                 <div class="flex items-center space-x-2">
                     <span id="displayUserName" class="text-blue-950 font-bold text-xs sm:text-sm"></span>
-                    <span id="displayTestType" class="bg-blue-900 text-white px-2.5 py-0.5 rounded-full text-xs"></span>
+                    <span id="displayTestType" style="background-color: #1e3a8a;" class="text-white px-2.5 py-0.5 rounded-full text-xs"></span>
                 </div>
             </div>
             
@@ -122,15 +115,13 @@
                 <div id="optionsContainer" class="space-y-2.5"></div>
             </div>
 
+            <!-- ปรับปรุงส่วนปุ่มเหลือ 2 ปุ่มใน Grid เดียวกัน -->
             <div class="grid grid-cols-2 gap-3 pt-2">
                 <button id="prevBtn" type="button" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2.5 rounded-lg transition duration-200 text-xs sm:text-sm">
                     ย้อนกลับ
                 </button>
-                <button id="nextBtn" type="button" class="w-full bg-blue-900 hover:bg-blue-950 text-white font-semibold py-2.5 rounded-lg transition duration-200 text-xs sm:text-sm shadow-md">
+                <button id="nextBtn" type="button" style="background-color: #1e3a8a;" class="w-full text-white font-bold py-2.5 rounded-lg transition duration-200 text-xs sm:text-sm shadow-md">
                     ถัดไป
-                </button>
-                <button id="reviewBtn" type="button" class="w-full bg-blue-900 hover:bg-blue-950 text-white font-bold py-2.5 rounded-lg transition duration-200 text-xs sm:text-sm shadow-md hidden">
-                    ตรวจสอบคำตอบ
                 </button>
             </div>
         </div>
@@ -150,7 +141,7 @@
                 <button id="backToQuizBtn" type="button" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2.5 rounded-lg transition duration-200 text-xs sm:text-sm">
                     กลับไปแก้ไข
                 </button>
-                <button id="submitQuizBtn" type="button" class="w-full bg-blue-900 hover:bg-blue-950 text-white font-bold py-2.5 rounded-lg transition duration-200 text-xs sm:text-sm shadow-md">
+                <button id="submitQuizBtn" type="button" style="background-color: #1e3a8a;" class="w-full text-white font-bold py-2.5 rounded-lg transition duration-200 text-xs sm:text-sm shadow-md">
                     ยืนยันส่งคำตอบ
                 </button>
             </div>
@@ -170,9 +161,6 @@
     <div class="text-gray-600 text-xxs mt-4 text-center z-10 font-medium">BASIC LIFE SUPPORT (CPR & AED) Educational Assessment System by OXYFIGHT CENTER</div>
 
     <script>
-        // ========================================================
-        // 🔒 [SECURITY HARDENING]
-        // ========================================================
         document.addEventListener('contextmenu', e => e.preventDefault());
         document.addEventListener('copy', e => e.preventDefault());
         document.addEventListener('cut', e => e.preventDefault());
@@ -202,9 +190,6 @@
             blurScreen.classList.remove('flex');
         });
 
-        // ========================================================
-        // 🚀 [LOGICหลัก]
-        // ========================================================
         document.addEventListener("DOMContentLoaded", () => {
             const infoFormElement = document.getElementById("infoForm");
             const closedMessageElement = document.getElementById("closedMessage");
@@ -249,7 +234,7 @@
             { q: "หากพบผู้ป่วยมีเครื่องกระตุกหัวใจฝังในร่างกาย (Pacemaker) บริเวณหน้าอก ควรติดแผ่น AED อย่างไร", a: ["ติดทับรอยปูดของเครื่องได้เลย", "หลีกเลี่ยงการติดทับตัวเครื่อง โดยติดให้ห่างอย่างน้อย 1 นิ้ว", "ห้ามใช้เครื่อง AED เด็ดขาด", "ติดแผ่น AED ที่หลังแทน"], c: 1 },
             { q: "การทำ CPR แบบกดหน้าอกเพียงอย่างเดียว (Hands-Only CPR) เหมาะสำหรับกรณีใด", a: ["ผู้ปฐมพยาบาลที่ไม่ได้รับการฝึกช่วยหายใจ หรือไม่สะดวกเป่าปาก", "ผู้ป่วยจมน้ำ", "เด็กเล็กและทารก", "ผู้ป่วยที่ได้รับยาเกินขนาด"], c: 0 },
             { q: "ท่านอนฟื้นคืนสติ (Recovery Position) เหมาะสำหรับผู้ป่วยลักษณะใด", a: ["ผู้ป่วยที่ไม่รู้สึกตัว แต่ยังหายใจได้เองอย่างสม่ำเสมอ", "ผู้ป่วยที่หยุดหายใจ", "ผู้ป่วยสงสัยกระดูกคอหัก", "ผู้ป่วยที่กำลังชัก"], c: 0 },
-            { q: "หากพบผู้ป่วยอุดกั้นทางเดินหายใจแบบสมบูรณ์  มีลักษณะเอามือกุมคอ พูดไม่มีเสียง ควรช่วยเหลืออย่างไร", a: ["ให้กำลังใจให้ผู้ป่วยพยายามช่วยเอง", "ทำการตบหลังสลับกับรัดกระตุกหน้าท้อง ", "ล้วงคอทันที", "ให้ดื่มน้ำเย็นจัด"], c: 1 },
+            { q: "หากพบผู้ป่วยอุดกั้นทางเดินหายใจแบบสมบูรณ์  มีลักษณะเอามือกุมคอ พูดไม่มีเสียง ควรช่วยเหลืออย่างไร", a: ["กระตุ้นและให้กำลังใจให้ผู้ป่วยพยายามเอง", "ทำการตบหลังสลับกับรัดกระตุกหน้าท้อง ", "ล้วงคอทันที", "ให้ดื่มน้ำเย็นจัด"], c: 1 },
             { q: "หากผู้ป่วยที่สำลักอาหารเกิดหมดสติลงขณะทำการรัดกระตุกหน้าท้อง สิ่งที่ต้องทำต่อไปคืออะไร", a: ["พยายามกระทุ้งหน้าท้องต่อในท่านอน", "เริ่มขั้นตอน CPR (กดหน้าอก) ทันที", "งัดง้างปากเพื่อดึงสิ่งอุดกั้นออก", "จัดท่านอนตะแคง"], c: 1 },
             { q: "การทำ CPR ในผู้ใหญ่ แขนของผู้กดหน้าอกควรมีลักษณะอย่างไร", a: ["เหยียดตึง ข้อศอกตรง และใช้แรงจากสะโพก/ลำตัว", "งอข้อศอกเล็กน้อยเพื่อผ่อนแรง", "ใช้เฉพาะแรงจากข้อมือ", "ใช้นิ้วมือกดลงไป"], c: 0 },
             { q: "เครื่อง AED สามารถใช้กับผู้ป่วยกลุ่มใดได้บ้าง", a: ["ผู้ใหญ่และเด็กที่มีภาวะหัวใจหยุดเต้นเฉียบพลัน", "เฉพาะผู้ใหญ่เท่านั้น", "เฉพาะผู้ป่วยที่มีชีพบรรปกติ", "ผู้ป่วยที่ง่วงซึม"], c: 0 },
@@ -270,7 +255,6 @@
         const progressText = document.getElementById('progressText');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
-        const reviewBtn = document.getElementById('reviewBtn');
         const reviewPage = document.getElementById('reviewPage');
         const resultPage = document.getElementById('resultPage');
         const subTitleText = document.getElementById('subTitleText');
@@ -347,13 +331,11 @@
                 prevBtn.disabled = false;
             }
 
-            // สลับการแสดงผลระหว่างปุ่ม "ถัดไป" และปุ่ม "ตรวจสอบคำตอบ" เพื่อไม่ให้ Class ตีกัน
+            // สลับชื่อปุ่มถัดไปเมื่อเข้าสู่ข้อที่ 10 (Index 9)
             if (currentQuestionIndex === 9) {
-                nextBtn.classList.add('hidden');
-                reviewBtn.classList.remove('hidden');
+                nextBtn.innerText = "ตรวจสอบคำตอบ";
             } else {
-                nextBtn.classList.remove('hidden');
-                reviewBtn.classList.add('hidden');
+                nextBtn.innerText = "ถัดไป";
             }
 
             qData.options.forEach((option, index) => {
@@ -383,18 +365,12 @@
                 alert("กรุณาเลือกคำตอบก่อนไปข้อถัดไป");
                 return;
             }
-            if (currentQuestionIndex < 9) {
+            if (currentQuestionIndex === 9) {
+                goToReviewPage();
+            } else {
                 currentQuestionIndex++;
                 showQuestion();
             }
-        });
-
-        reviewBtn.addEventListener('click', () => {
-            if (userAnswers[currentQuestionIndex] === null) {
-                alert("กรุณาเลือกคำตอบก่อนไปข้อถัดไป");
-                return;
-            }
-            goToReviewPage();
         });
 
         prevBtn.addEventListener('click', () => {
